@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.grampower.attendance.AssignTask">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbarBackColor"
+            android:layout_gravity="bottom"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageButton
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:id="@+id/backAssignTask"
+                android:background="@color/toolbarBackColor"
+                android:src="@drawable/ic_arrow_back_black_30dp"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/toolbar_profile_diameter"
+                android:layout_height="@dimen/toolbar_profile_diameter"
+                android:id="@+id/profile_assign_task"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SaM"
+                android:textColor="@color/black"
+                android:id="@+id/employeeName"
+                android:layout_marginLeft="@dimen/minimum"
+                android:textSize="@dimen/dp_20"/>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_4"
+        android:layout_marginTop="@dimen/recycler_margin_top">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:paddingBottom="@dimen/dp_30"
+        android:paddingRight="@dimen/dp_30"
+        android:background="@drawable/curved_corner_view"
+        android:orientation="vertical">
+
+        <ProgressBar
+        android:id="@+id/progressbar_assign_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="#795548"
+        android:indeterminateTintMode="src_in"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        />
+
+        <EditText
+
+        android:id="@+id/taskStatement"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:hint="Toady's Task..."
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:background="@color/white"
+       />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/one_more_task"
+        android:id="@+id/oneMoretask"
+        android:background="@drawable/button_shape"
+        android:layout_below="@+id/taskStatement"
+        android:layout_alignParentLeft="true"
+        android:textAllCaps="false"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:paddingTop="@dimen/minimum"
+        android:paddingBottom="@dimen/minimum"
+        android:paddingRight="@dimen/minimum"
+        android:paddingLeft="@dimen/minimum"
+        android:layout_marginTop="@dimen/dp_30"
+        android:textSize="@dimen/dp_15"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignThisTask"
+        android:background="@drawable/button_shape"
+        android:text="@string/assign_this_task"
+        android:textAllCaps="false"
+        android:layout_below="@+id/taskStatement"
+        android:layout_alignParentRight="true"
+        android:paddingTop="@dimen/minimum"
+        android:paddingBottom="@dimen/minimum"
+        android:paddingRight="@dimen/minimum"
+        android:paddingLeft="@dimen/minimum"
+        android:layout_marginTop="@dimen/dp_30"
+        android:textSize="@dimen/dp_15"/>
+       </RelativeLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

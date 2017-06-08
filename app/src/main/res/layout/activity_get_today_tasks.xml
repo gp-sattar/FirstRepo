@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.grampower.attendance.GetTodayTasks">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/toolbarBackColor"
+            android:layout_gravity="bottom"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:popupTheme="@style/AppTheme.PopupOverlay"
+            android:weightSum="1">
+
+            <ImageButton
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="match_parent"
+                android:id="@+id/backAssignTask"
+                android:background="@color/toolbarBackColor"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks"
+                android:textColor="@color/black"
+                android:id="@+id/employeeName"
+                android:layout_marginLeft="@dimen/minimum"
+                android:textSize="@dimen/employeeName_size"/>
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/recycler_margin_top"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="@dimen/TaskSuccessor_height">
+
+            <ImageButton
+                android:layout_width="@dimen/TaskSuccessor_height"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_chevron_left_black_24dp"
+                android:id="@+id/predecessor"
+                android:layout_alignParentLeft="true"
+                android:background="@color/white"
+                android:layout_marginLeft="@dimen/edittext_height"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="24dp"
+                android:id="@+id/taskTurn"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="8dp"
+                />
+            <ImageButton
+                android:layout_width="@dimen/TaskSuccessor_height"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:id="@+id/successor"
+                android:src="@drawable/ic_chevron_right_black_24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/edittext_height"
+                />
+        </RelativeLayout>
+
+        <FrameLayout android:name="com.grampower.attendance.taskFragment"
+            android:id="@+id/taskInfoFragment"
+            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+             />
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
