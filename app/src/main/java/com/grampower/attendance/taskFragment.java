@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,6 +24,8 @@ import java.text.SimpleDateFormat;
  */
 
 public class taskFragment extends Fragment {
+
+    View view;
 
     Context context;
     public taskFragment() {
@@ -42,19 +43,18 @@ public class taskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
    String taskStatement="Loading error",detail="";
 
-       final  View view= inflater.inflate(R.layout.task_fragment_view,container,false);
-        final RadioGroup radioGroup=(RadioGroup)view.findViewById(R.id.frag_status);
-        TextView mStatement=(TextView)view.findViewById(R.id.taskStatement_fragment);
-        final EditText details=(EditText)view.findViewById(R.id.detail_fragment);
-        Button mSubmit=(Button)view.findViewById(R.id.report_submit_button);
-       Bundle args=getArguments();
-        if(args==null){
-            Toast.makeText(getActivity(),"arguments are null",Toast.LENGTH_LONG).show();
-        }else{
 
+        Bundle args=getArguments();
+        String dataAvailable=args.getString("data");
+        if(dataAvailable.equals("Yes")) {
+            view= inflater.inflate(R.layout.task_fragment_view,container,false);
+            final RadioGroup radioGroup=(RadioGroup)view.findViewById(R.id.frag_status);
+            TextView mStatement=(TextView)view.findViewById(R.id.taskStatement_fragment);
+            final EditText details=(EditText)view.findViewById(R.id.detail_fragment);
+            Button mSubmit=(Button)view.findViewById(R.id.report_submit_button);
             taskStatement=args.getString("taskstatement");
             detail=args.getString("detail");
-           final String taskId=args.getString("taskId");
+            final String taskId=args.getString("taskId");
 
             mStatement.setText(taskStatement);
             details.setHint(detail);
@@ -65,20 +65,23 @@ public class taskFragment extends Fragment {
                     RadioButton status = (RadioButton)view.findViewById(selectedId);
                     String mStatus=status.getText().toString();
                     String detail=details.getText().toString().trim();
-
                     SharedPreferences sharedPreferences=getActivity().getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
                     String email=sharedPreferences.getString("email","");
                     long date=System.currentTimeMillis();
                     SimpleDateFormat dateFormat=new SimpleDateFormat("dd_MM_yy");
                     String datetext=dateFormat.format(date);
-
                     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("users");
                     databaseReference.child(email).child("tasks").child(datetext).child(taskId).child("status").setValue(mStatus);
                     databaseReference.child(email).child("tasks").child(datetext).child(taskId).child("detail").setValue(detail);
 
                 }
             });
+
+        }else{
+            view = inflater.inflate(R.layout.no_task_fragment_view, container, false);
         }
+
+
 
 
         return view;

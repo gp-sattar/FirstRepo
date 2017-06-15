@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -204,6 +205,16 @@ public class profile extends AppCompatActivity {
          LinearLayout linearLayout=(LinearLayout)layout.findViewById(R.id.popuplayout);
          popup = new PopupWindow(layout,700, 380, true);
          popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+         popup.setOutsideTouchable(false);
+
+         View container = popup.getContentView().getRootView();
+         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+         WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+         p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+         p.dimAmount = 0.3f;
+         wm.updateViewLayout(container, p);
+
          TextView emailHeader=(TextView)layout.findViewById(R.id.emailPopup);
          ImageButton close=(ImageButton)layout.findViewById(R.id.close);
          final EditText updateField=(EditText)layout.findViewById(R.id.editTextPopup);
@@ -271,4 +282,9 @@ public class profile extends AppCompatActivity {
    }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(profile.this,MainActivity.class));
+    }
 }

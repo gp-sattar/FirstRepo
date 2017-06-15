@@ -1,19 +1,21 @@
 package com.grampower.attendance.syncAdapters;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SyncResult;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -40,23 +42,35 @@ import java.util.Map;
 public class SyncAdapter extends  AbstractThreadedSyncAdapter {
 
    String TAG="Attendance";
+    private  AccountManager mAccountManager=null;
+
+    public SyncAdapter(Context context, boolean autoInitialize) {
+        super(context, autoInitialize);
+        mAccountManager = AccountManager.get(context);
+        Log.d("az","adapter Constructor");
+
+    }
 
     public SyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
-
+      //  mAccountManager = AccountManager.get(context);
     }
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        Log.d(TAG,"ONPerformSync");
-        SharedPreferences sharedPreferences=getContext().getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
-        String email=sharedPreferences.getString("email","");
+        Log.d("az","ONPerformSync");
+        if(isNetworkAvailable()){
+            SharedPreferences sharedPreferences=getContext().getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
+            String email=sharedPreferences.getString("email","");
+            Log.d("az","onSync");
+            profileSync();
+            attendanceSync();
+            newTodayTasksSync(email);
+            taskReportSync(email);
+        }else{
+            Log.d("az","no network available");
+        }
 
-        Log.d("Attendance","onSync");
-        profileSync();
-        attendanceSync();
-        newTodayTasksSync(email);
-        taskReportSync(email);
     }
 
     void profileSync(){
@@ -238,5 +252,13 @@ public class SyncAdapter extends  AbstractThreadedSyncAdapter {
                 databaseReference.child(email).child("tasks").child(date).child(taskid).setValue(updatedTask);
             }while(crsr.moveToNext());
         }
+    }
+
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

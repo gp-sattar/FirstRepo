@@ -24,12 +24,28 @@ tools:context="com.grampower.attendance.MainActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Control Panel"
-            android:textSize="@dimen/employeeName_size"/>
+            android:textColor="@color/black"
+            android:textSize="@dimen/toolbar_text_size"/>
 
     </android.support.v7.widget.Toolbar>
 
 
 </android.support.design.widget.AppBarLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/recycler_margin_top"
+    android:layout_height="match_parent">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:id="@+id/marquee"
+        android:background="@color/light_black"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/minimum"
+        android:layout_marginLeft="@dimen/minimum"
+        android:layout_height="wrap_content"/>
 
     <GridView
         android:id="@+id/gridLayout"
@@ -38,12 +54,12 @@ tools:context="com.grampower.attendance.MainActivity">
         android:clickable="true"
         android:columnWidth="230dp"
         android:stretchMode="columnWidth"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
-        android:layout_marginTop="@dimen/recycler_margin_top"
+        android:layout_marginTop="@dimen/dp_20"
        />
-
+</LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

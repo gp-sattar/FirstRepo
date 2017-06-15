@@ -6,6 +6,7 @@ import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 
 /**
@@ -17,6 +18,7 @@ public class stubAuthenticator extends AbstractAccountAuthenticator {
 
     public stubAuthenticator(Context context) {
         super(context);
+        Log.d("az","stubAuthenticator");
     }
 
     @Override

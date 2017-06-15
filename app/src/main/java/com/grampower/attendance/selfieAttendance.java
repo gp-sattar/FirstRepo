@@ -9,12 +9,16 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -24,6 +28,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +75,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
     ProgressDialog progressDialog;
     RelativeLayout mStartAttend,mEndAttend;
     protected GoogleApiClient mGoogleApiClient;
+    CoordinatorLayout mCoordinatorLayout;
 
 
 
@@ -125,6 +131,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         mEndAttend=(RelativeLayout)findViewById(R.id.endAttendance);
         mBack=(ImageView)findViewById(R.id.backSelfieAttendance);
         mProfileView = (CircleImageView) findViewById(R.id.profile_selfie_toolbar);
+        mCoordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinatorLayout);
         DataBase dataBase=new DataBase(context);
         Cursor crsr= dataBase.getProfileData(dataBase);
         if(crsr.moveToFirst()){
@@ -136,25 +143,6 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
             }
         }
 
-        long date = System.currentTimeMillis();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
-        String todaydate = dateFormat.format(date);
-
-        SharedPreferences sharedPreferences=context.getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
-         String startDate=sharedPreferences.getString("startAttendance","");
-        String   endDate=sharedPreferences.getString("endAttendance","");
-        if(todaydate.equals(startDate)){
-            mStartAttend.setClickable(false);
-            if (todaydate.equals(endDate)){
-                mEndAttend.setClickable(false);
-            }else{
-                mEndAttend.setClickable(true);
-            }
-        }else{
-            mStartAttend.setClickable(true);
-            mEndAttend.setClickable(false);
-
-        }
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,57 +154,72 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
 
 
 
+
       mStartAttend.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-              if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                  startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_START_AATENDANCE);
+              long date = System.currentTimeMillis();
+              SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
+              String todaydate = dateFormat.format(date);
+              SharedPreferences sharedPreferences=context.getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
+              String startDate=sharedPreferences.getString("startAttendance","");
+
+              if(todaydate.equals(startDate)){
+                  Snackbar snackbar = Snackbar.make(mCoordinatorLayout, "You have already recorded morning presence.", Snackbar.LENGTH_LONG);
+                  View sbView = snackbar.getView();
+                  TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                  textView.setTextColor(Color.YELLOW);
+                  snackbar.show();
+
+              }else{
+                  Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                      takePictureIntent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1);
+                  } else {
+                      takePictureIntent.putExtra("android.intent.extras.CAMERA_FACING", 1);
+                  }
+                  if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                      startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_START_AATENDANCE);
+                  }
               }
+
           }
       });
 
      mEndAttend.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_END_AATENDANCE);
+
+             long date = System.currentTimeMillis();
+             SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
+             String todaydate = dateFormat.format(date);
+             SharedPreferences sharedPreferences=context.getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
+             String startDate=sharedPreferences.getString("startAttendance","");
+             String   endDate=sharedPreferences.getString("endAttendance","");
+             if(todaydate.equals(startDate)){
+                 if(todaydate.equals(endDate)){
+                     Snackbar snackbar = Snackbar.make(mCoordinatorLayout, "You have already recorded evening presence", Snackbar.LENGTH_LONG);
+                     View sbView = snackbar.getView();
+                     TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                     textView.setTextColor(Color.YELLOW);
+                     snackbar.show();
+                 }else{
+                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_END_AATENDANCE);
+                     }
+                 }
+             }else{
+                 Snackbar snackbar = Snackbar.make(mCoordinatorLayout, "Record your morning presence first", Snackbar.LENGTH_LONG);
+                 View sbView = snackbar.getView();
+                 TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                 textView.setTextColor(Color.YELLOW);
+                 snackbar.show();
              }
+
          }
      });
 
-       // mlocationView = (TextView) findViewById(R.id.locationView);
-       // mAttendClick = (Button) findViewById(R.id.attendClick);
-/*
-        mSelfieAttendance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                }
-
-            }
-
-        });
-
-        mAttendClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mSelfieView.getDrawable() == null) {
-                    Toast.makeText(context, "Please click Selfie please", Toast.LENGTH_LONG).show();
-                } else {
-                    if (mlocationView.getText().toString().length() > 0) {
-                        uploadSelfie();
-                    } else {
-                        Toast.makeText(context, "Location is not found, Please make sure your GPS is ON", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
-*/
         new waitForLocation().execute();
     }
 
@@ -353,6 +356,14 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(context,MainActivity.class));
+        finish();
+    }
+
+
     class getAddress extends AsyncTask<Void, String, String> {
 
         private String Address1 = "", Address2 = "", City = "", State = "", Country = "", County = "", PIN = "";
@@ -437,44 +448,14 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         byte[] data = baos.toByteArray();
         String encodedSelfieString = Base64.encodeToString(data, Base64.DEFAULT);
 
-       /* StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendacemodule.appspot.com/");
-        StorageReference dataRef = storageRef.child("AttendanceSelfies/selfie_" + email + "_" + timestamp + ".jpg");
-        mProgressBar.setVisibility(View.VISIBLE);
-        UploadTask uploadTask = dataRef.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, "Try agian", Toast.LENGTH_LONG).show();
-                mProgressBar.setVisibility(View.GONE);
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-                AttendaceData todayAttend = new AttendaceData(currentTime, downloadUrl.toString(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude());
-                Map<String, Object> attedanceMap = new HashMap<>();
-                attedanceMap.put(todayDate, todayAttend);
-                databaseReference.child(email).child("attendance").updateChildren(attedanceMap);
-                mProgressBar.setVisibility(View.GONE);
-                Toast.makeText(context, "Your presence have recorded", Toast.LENGTH_LONG).show();
-            }
-        });
-*/
       String selfieName="selfie_" + email + "_" + timestamp + ".jpg";
         DataBase dataBase=new DataBase(context);
         dataBase.insertAttendance(dataBase,todayDate,attendType,currentLocation,currentTime,selfieName,encodedSelfieString,0);
         SharedPreferences.Editor editor=sharedPreferences.edit();
-
         if(attendType.equals("morning")){
             editor.putString("startAttendance",todayDate);
-            mStartAttend.setClickable(false);
-            mEndAttend.setClickable(true);
         }else{
             editor.putString("endAttendance",todayDate);
-            mEndAttend.setClickable(false);
         }
         editor.commit();
 

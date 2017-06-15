@@ -8,48 +8,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.grampower.attendance.LoginActivity">
 
-<android.support.design.widget.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/toolbarBackColor"
-        android:layout_gravity="bottom"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        android:popupTheme="@style/AppTheme.PopupOverlay">
-
-
-        <ImageButton
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="match_parent"
-            android:id="@+id/back_login"
-            android:background="@color/toolbarBackColor"
-            android:src="@drawable/ic_arrow_back_black_30dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textColor="@color/black"
-            android:id="@+id/employeeName"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:textSize="@dimen/toolbar_text_size"/>
-
-    </android.support.v7.widget.Toolbar>
-
-
-</android.support.design.widget.AppBarLayout>
    <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_marginTop="@dimen/recycler_margin_top"
-       >
+       android:layout_height="match_parent">
 
        <ProgressBar
            android:id="@+id/progress_bar_login"
@@ -78,6 +40,7 @@
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_marginRight="@dimen/dp_30"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/recycler_margin_top"
             android:src="@drawable/logo"
             />
 

@@ -31,6 +31,12 @@
                 android:background="@color/toolbarBackColor"
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/toolbar_profile_diameter"
+                android:layout_height="@dimen/toolbar_profile_diameter"
+                 android:id="@+id/profileGetTasks"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +57,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:background="@color/white"
+            android:id="@+id/topBar"
             android:layout_height="@dimen/TaskSuccessor_height">
 
             <ImageButton

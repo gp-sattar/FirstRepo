@@ -2,9 +2,8 @@
 <sync-adapter
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:contentAuthority="com.grampower.attendance.syncAdapters"
-    android:accountType="grampower.com"
+    android:accountType="com.grampower.attendance.account"
     android:userVisible="false"
     android:supportsUploading="false"
-    android:allowParallelSyncs="true"
     android:isAlwaysSyncable="true"/>
 

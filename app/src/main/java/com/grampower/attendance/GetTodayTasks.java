@@ -6,17 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GetTodayTasks extends AppCompatActivity {
 
@@ -26,30 +29,44 @@ public class GetTodayTasks extends AppCompatActivity {
     Context context;
     TextView mTaskTurn;
    FragmentManager FragManager;
-
+   RelativeLayout mTopBar;
    List<Task> listOfTodayTask;
     ImageButton mPredecesoor,mSuccessor,mBack;
+    CircleImageView mProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_today_tasks);
         context=this;
+
+        Intent intent=getIntent();
+         String date= intent.getExtras().getString("date");
+
+        mProfile=(CircleImageView)findViewById(R.id.profileGetTasks);
+        mTopBar=(RelativeLayout)findViewById(R.id.topBar);
         mPredecesoor=(ImageButton)findViewById(R.id.predecessor);
         mSuccessor=(ImageButton)findViewById(R.id.successor);
         mTaskTurn=(TextView)findViewById(R.id.taskTurn);
         mBack=(ImageButton)findViewById(R.id.backAssignTask);
         FragManager = getFragmentManager();
-        FragmentTransaction transaction = FragManager.beginTransaction();
-        long date=System.currentTimeMillis();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd_MM_yy");
-        String dateText=dateFormat.format(date);
+
+        DataBase dataBase2=new DataBase(context);
+        Cursor crsr2= dataBase2.getProfileData(dataBase2);
+        if(crsr2.moveToFirst()){
+            String image_string = crsr2.getString(5);
+            byte[] image_data = Base64.decode(image_string, Base64.DEFAULT);
+            if (image_data != null) {
+                Bitmap imageBitmap = BitmapFactory.decodeByteArray(image_data, 0, image_data.length);
+                mProfile.setImageBitmap(imageBitmap);
+            }
+        }
         SharedPreferences sharedPreferences=context.getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
        String email=sharedPreferences.getString("email","");
 
          listOfTodayTask=new ArrayList<>();
 
         DataBase dataBase=new DataBase(context);
-        Cursor crsr=dataBase.getTask(dataBase,dateText);
+        Cursor crsr=dataBase.getTask(dataBase,date);
         if(crsr.moveToFirst()){
             do{
                 String taskId=crsr.getString(2);
@@ -57,19 +74,16 @@ public class GetTodayTasks extends AppCompatActivity {
                 String status=crsr.getString(4);
                 String detail=crsr.getString(5);
                 Task mTask=new Task(taskId,taskStatement,status,detail);
-
-                Toast.makeText(context,"id :"+crsr.getString(0)+" and "+taskStatement,Toast.LENGTH_LONG);
-
-                Log.d("Attendance","id :"+crsr.getString(0)+" and "+taskStatement);
-
                 listOfTodayTask.add(mTask);
             }while(crsr.moveToNext());
 
             currentTask=0;
+            FragmentTransaction transaction = FragManager.beginTransaction();
             taskListSize=listOfTodayTask.size();
             Task firstTask=listOfTodayTask.get(0);
             mTaskTurn.setText((currentTask+1)+"/"+taskListSize);
             Bundle bundle = new Bundle();
+            bundle.putString("data","Yes");
             bundle.putString("taskId",firstTask.getTaskId());
             bundle.putString("taskstatement",firstTask.getTaskstatement());
             bundle.putString("detail",firstTask.getDetail());
@@ -79,7 +93,14 @@ public class GetTodayTasks extends AppCompatActivity {
             transaction.commit();
 
         }else{
-            Log.d("Attendance","no Task for today updated yet");
+             mTopBar.setVisibility(View.GONE);
+            FragmentTransaction transaction = FragManager.beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putString("data","No");
+            taskFragment taskInfo = new taskFragment();
+            taskInfo.setArguments(bundle);
+            transaction.replace(R.id.taskInfoFragment, taskInfo);
+            transaction.commit();
         }
 
 
@@ -100,6 +121,7 @@ public class GetTodayTasks extends AppCompatActivity {
                 mTaskTurn.setText((currentTask+1)+"/"+taskListSize);
                 FragmentTransaction transaction = FragManager.beginTransaction();
                 Bundle bundle = new Bundle();
+                bundle.putString("data","Yes");
                 bundle.putString("taskId",firstTask.getTaskId());
                 bundle.putString("taskstatement",firstTask.getTaskstatement());
                 bundle.putString("detail",firstTask.getDetail());
@@ -119,6 +141,7 @@ public class GetTodayTasks extends AppCompatActivity {
                 mTaskTurn.setText((currentTask+1)+"/"+taskListSize);
                 FragmentTransaction transaction = FragManager.beginTransaction();
                 Bundle bundle = new Bundle();
+                bundle.putString("data","Yes");
                 bundle.putString("taskId",firstTask.getTaskId());
                 bundle.putString("taskstatement",firstTask.getTaskstatement());
                 bundle.putString("detail",firstTask.getDetail());
