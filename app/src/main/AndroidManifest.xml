@@ -30,6 +30,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         tools:replace="android:icon">
 
+        <activity android:name=".MainActivity">
+        </activity>
+
         <service
             android:name=".syncAdapters.AuthenticatorService">
             <intent-filter>
@@ -52,9 +55,13 @@
                 android:resource="@xml/syncadapter" />
         </service>
 
+        <provider
+            android:name=".syncAdapters.stubProvider"
+            android:authorities="com.grampower.attendance.syncAdapters"
+            android:exported="false"
+            android:syncable="true"/>
 
-        <activity android:name=".MainActivity">
-        </activity>
+
         <activity android:name=".SignUp"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".CalenderDatePicker" />

@@ -437,7 +437,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         final String email = sharedPreferences.getString("email", "");
         long date = System.currentTimeMillis();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyy_hhmmss");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HHmmss");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hhmmss a");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
         String timestamp = simpleDateFormat.format(date);
         final String currentTime = timeFormat.format(date);

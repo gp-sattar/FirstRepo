@@ -19,8 +19,8 @@ public class DataBase extends SQLiteOpenHelper {
     public String sql_query_profile="create table profile (email varchar(30), name varchar(30),password varchar(25),gender varchar(6),mobile varchar(10),profile_image_data blob,syncStatus int);";
     public String sql_query_task="create table tasks (id integer primary key autoincrement, date varchar(8),taskid varchar(6) not NULL, taskstatement varchar(20), status varchar(20), detail varchar(200),syncStatus int);";
     public String sql_query_attendance="create table attendance (id integer primary key autoincrement, date varchar(8),attendanceType varchar(10),currentLocation varchar(40),currentTime varchar(40),selfie_name varchar(40), selfie_data blob, syncStatus int);";
-
-     String TAG="Attendance";
+    public String sql_query_notifications="create table notifications (id integer primary key autoincrement,notify_id varchar(20), notification varchar(300));";
+    public static String TAG=DataBase.class.getSimpleName();
 
     public DataBase(Context context) {
         super(context, "MyDatabase",null, database_version);
@@ -32,6 +32,7 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL(sql_query_profile);
         db.execSQL(sql_query_attendance);
         db.execSQL(sql_query_task);
+        db.execSQL(sql_query_notifications);
         Log.d("database operation", "tables have created");
     }
 
@@ -170,9 +171,34 @@ public class DataBase extends SQLiteOpenHelper {
             e.printStackTrace();
         }
         return cr;
-
     }
 
+    public void insertNotification(DataBase object,String id, String  notification){
+        SQLiteDatabase sq=object.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put("notify_id",id);
+        cv.put("notification",notification);
+        sq.insert("notifications", null, cv);
+    }
+
+    public Cursor getNotifications(DataBase object){
+        Cursor cr=null;
+        try{ SQLiteDatabase SQ=object.getReadableDatabase();
+            String sql_query="select * from notifications";
+            cr = SQ.rawQuery(sql_query, null);
+        }catch(SQLiteException e){
+            e.printStackTrace();
+        }
+        return  cr;
+    }
+
+    public void deleteNotifications(DataBase object){
+        SQLiteDatabase sq=object.getWritableDatabase();
+        String sql_query="DELETE FROM notifications;";
+        sq.execSQL(sql_query);
+        Log.d(TAG,"delete from notification");
+
+    }
 
 
 }

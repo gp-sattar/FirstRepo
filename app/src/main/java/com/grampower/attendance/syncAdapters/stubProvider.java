@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 /**
  * Created by samdroid on 8/6/17.
@@ -14,8 +13,7 @@ import android.util.Log;
 public class stubProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
-        Log.d("az","contentProvider");
-        return false;
+        return true;
 
     }
 

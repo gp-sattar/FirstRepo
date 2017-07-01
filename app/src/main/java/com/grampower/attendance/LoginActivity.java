@@ -230,6 +230,7 @@ public class LoginActivity extends AppCompatActivity{
             editor.putString("date","welcome");
             editor.putString("startAttendance","noAttendance");
             editor.putString("endAttendance","noAttendance");
+            editor.putString("taskSync","newuser");
             editor.putString("name",name);
             editor.putString("profileUrl",url);
             editor.commit();

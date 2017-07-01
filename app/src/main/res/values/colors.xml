@@ -15,10 +15,10 @@
     <color name="dark_gray">#2F4F4F</color>
     <color name="taskSuccessor">#97d0c9</color>
     <color name="tagColor">#f97508</color>
-    <color name="toolbarBackColor">#ffa500</color>
+    <color name="toolbarBackColor">#FF7F00</color>
     <color name="btn_back">#329999</color>
     <color name="background_screen_color">#f0f8ff</color>
-    <color name="orange">#ffa500</color>
+    <color name="orange">#FF7F00</color>
 
 
 </resources>
