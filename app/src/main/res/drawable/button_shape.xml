@@ -8,7 +8,7 @@
             <solid android:color="#ffffff"/>
             <corners android:radius="25dp"></corners>
             <stroke
-                android:width="5dp"
+                android:width="3dp"
                 android:color="@color/orange"/>
         </shape>
     </item>
@@ -20,10 +20,9 @@
                 android:startColor="#ffc04c"
                 android:endColor="#ffedcc"
                 android:angle="135" />
-
             <corners android:radius="25dp"></corners>
             <stroke
-                android:width="5dp"
+                android:width="3dp"
                 android:color="@color/orange"/>
         </shape>
 
@@ -38,10 +37,9 @@
                 android:startColor="#ffc04c"
                 android:endColor="#ffedcc"
                 android:angle="135" />
-
             <corners android:radius="25dp"></corners>
             <stroke
-                android:width="5dp"
+                android:width="3dp"
                 android:color="@color/orange"/>
         </shape>
 

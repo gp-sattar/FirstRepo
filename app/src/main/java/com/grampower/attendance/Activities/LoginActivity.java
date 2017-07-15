@@ -1,9 +1,8 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -16,8 +15,11 @@ import android.text.Html;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Target;
+import com.grampower.attendance.Databases.DataBase;
+import com.grampower.attendance.Others.FieldForce;
+import com.grampower.attendance.Others.LinearLayoutThatDetectsSoftKeyboard;
+import com.grampower.attendance.Others.Utils;
+import com.grampower.attendance.R;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,27 +46,34 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity{
 
-
     private TextInputEditText mEmailView;
     private  TextInputEditText mPasswordView;
     ProgressDialog progressDialog;
-     TextView mNewAccount,mForgotpassword;
+    TextView mNewAccount,mForgotpassword;
     Context context;
     ProgressBar mProgressBar;
-    Target target;
+    RelativeLayout mMainLayout;
+    LinearLayout mLoginForm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         context=this;
+        mMainLayout=(RelativeLayout)findViewById(R.id.main_login_layout);
+        mLoginForm=(LinearLayout)findViewById(R.id.email_login_form);
         mProgressBar=(ProgressBar)findViewById(R.id.progress_bar_login);
         mEmailView = (TextInputEditText) findViewById(R.id.loginemail);
         mPasswordView = (TextInputEditText) findViewById(R.id.loginpassword);
         mNewAccount=(TextView)findViewById(R.id.new_account);
         mForgotpassword=(TextView)findViewById(R.id.forgotPassword);
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        LinearLayoutThatDetectsSoftKeyboard listen = new LinearLayoutThatDetectsSoftKeyboard(mLoginForm);
+        mMainLayout.getViewTreeObserver().addOnGlobalLayoutListener(listen);
+
 
         String htmlString="<u>Forgot Password?</u>";
         mForgotpassword.setText(Html.fromHtml(htmlString));
@@ -80,6 +93,11 @@ public class LoginActivity extends AppCompatActivity{
                             .setContentText("Internet Connection is required for Log In ")
                             .show();
                 }
+
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow((null == getCurrentFocus()) ? null : getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+
             }
             });
 
@@ -97,7 +115,7 @@ public class LoginActivity extends AppCompatActivity{
 
     void loginToServer(final String mail,String textEmail,final String textPassword){
 
-        if(textEmail.length()!=0&&!textEmail.equals("")&&Utils.isEmailValid(textEmail)){
+        if(textEmail.length()!=0&&!textEmail.equals("")&& Utils.isEmailValid(textEmail)){
             if(textPassword.length()!=0&&!textPassword.equals("")){
 
                 mProgressBar.setVisibility(View.GONE);
@@ -107,18 +125,6 @@ public class LoginActivity extends AppCompatActivity{
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
-              /*  FirebaseAuth authen=FirebaseAuth.getInstance();
-                authen.signInWithEmailAndPassword(mail,textPassword).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
-                        }else{
-                            new SweetAlertDialog(context).setTitleText("Something wrong with Server, Try Again !").show();
-                            startActivity(getIntent());
-                        }
-                    }
-                });*/
 
                 DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("users");
                 databaseReference.child(mail).child("profile").addValueEventListener(new ValueEventListener() {
@@ -200,7 +206,9 @@ public class LoginActivity extends AppCompatActivity{
                 conn.connect();
                 InputStream is = conn.getInputStream();
                 BufferedInputStream bis = new BufferedInputStream(is);
-                bm = BitmapFactory.decodeStream(bis);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                bm = BitmapFactory.decodeStream(bis,null ,options);
                 bis.close();
                 is.close();
             } catch (IOException e) {
@@ -221,19 +229,12 @@ public class LoginActivity extends AppCompatActivity{
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bytedata = stream.toByteArray();
             String encodedImageString = Base64.encodeToString(bytedata, Base64.DEFAULT);
+
             DataBase dataBase=new DataBase(LoginActivity.this);
             dataBase.insertProfile(dataBase,mail,name,password,gender,mobile,encodedImageString);
-            SharedPreferences sharedPreferences=context.getSharedPreferences("MYPREFERENCES",Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            editor.putString("email",mail);
-            editor.putString("password",password);
-            editor.putString("date","welcome");
-            editor.putString("startAttendance","noAttendance");
-            editor.putString("endAttendance","noAttendance");
-            editor.putString("taskSync","newuser");
-            editor.putString("name",name);
-            editor.putString("profileUrl",url);
-            editor.commit();
+
+            FieldForce.getInstance().setAccountDetails(mail,password,name,url);
+
             Toast.makeText(context, "You have successfully logged In.", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
             finish();

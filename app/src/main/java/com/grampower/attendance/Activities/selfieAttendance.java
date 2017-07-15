@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,11 +21,10 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,20 +42,10 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.grampower.attendance.Databases.DataBase;
+import com.grampower.attendance.R;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -65,7 +54,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
 
 
     CircleImageView mProfileView;
-    ImageView mBack;
+    LinearLayout mBack;
     Context context;
     LocationRequest locationRequest;
     Location mLastLocation;
@@ -84,17 +73,17 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selfie_attendance);
 
+
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(30 * 1000);
         locationRequest.setFastestInterval(5 * 1000);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
         buildGoogleApiClient();
         mGoogleApiClient.connect();
         builder.setAlwaysShow(true);
-        PendingResult<LocationSettingsResult> result =
-                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
         result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
             public void onResult(LocationSettingsResult result) {
@@ -129,7 +118,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         mProgressBar = (ProgressBar) findViewById(R.id.toolbar_progress_bar_selfie);
         mStartAttend=(RelativeLayout)findViewById(R.id.startAttendance);
         mEndAttend=(RelativeLayout)findViewById(R.id.endAttendance);
-        mBack=(ImageView)findViewById(R.id.backSelfieAttendance);
+        mBack=(LinearLayout) findViewById(R.id.backLayout_selfie);
         mProfileView = (CircleImageView) findViewById(R.id.profile_selfie_toolbar);
         mCoordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinatorLayout);
         DataBase dataBase=new DataBase(context);
@@ -296,6 +285,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
 
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -355,80 +345,14 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         }
     }
 
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         startActivity(new Intent(context,MainActivity.class));
         finish();
     }
 
 
-    class getAddress extends AsyncTask<Void, String, String> {
 
-        private String Address1 = "", Address2 = "", City = "", State = "", Country = "", County = "", PIN = "";
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            //String address="";
-
-            try {
-
-                JSONObject jsonObj = getJSONfromURL("http://maps.googleapis.com/maps/api/geocode/json?latlng="+mLastLocation.getLatitude()  + "," + mLastLocation.getLongitude() + "&sensor=true");
-                String Status = jsonObj.getString("status");
-                if (Status.equalsIgnoreCase("OK")) {
-                    JSONArray Results = jsonObj.getJSONArray("results");
-                    JSONObject zero = Results.getJSONObject(0);
-                    JSONArray address_components = zero.getJSONArray("address_components");
-
-                    for (int i = 0; i < address_components.length(); i++) {
-                        JSONObject zero2 = address_components.getJSONObject(i);
-                        String long_name = zero2.getString("long_name");
-                        //address=address+", "+long_name;
-                        JSONArray mtypes = zero2.getJSONArray("types");
-                        String Type = mtypes.getString(0);
-
-                        if (TextUtils.isEmpty(long_name) == false || !long_name.equals(null) || long_name.length() > 0 || long_name != "") {
-                            if (Type.equalsIgnoreCase("street_number")) {
-                                Address1 = long_name + " ";
-                            } else if (Type.equalsIgnoreCase("route")) {
-                                Address1 = Address1 + long_name;
-                            } else if (Type.equalsIgnoreCase("sublocality")&&long_name.length()>2) {
-                                Address1 = Address1 +", "+ long_name;;
-                            } else if (Type.equalsIgnoreCase("locality")) {
-                                // Address2 = Address2 + long_name + ", ";
-                                City = long_name;
-                            } else if (Type.equalsIgnoreCase("administrative_area_level_2")) {
-                                County = long_name;
-                            } else if (Type.equalsIgnoreCase("administrative_area_level_1")) {
-                                State = long_name;
-                            } else if (Type.equalsIgnoreCase("country")) {
-                                Country = long_name;
-                            } else if (Type.equalsIgnoreCase("postal_code")) {
-                                PIN = long_name;
-                            }    }
-                    }
-
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                //address=e.toString();
-            }
-            return Address1+", "+City+", "+State+", "+Country+", "+PIN;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            if (progressDialog != null) {
-                progressDialog.dismiss();
-            }
-            //mlocationView.setText(result);
-        }
-
-    }
 
 
     private void recordAttendance(Bitmap imagedata,String attendType) {
@@ -437,7 +361,7 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         final String email = sharedPreferences.getString("email", "");
         long date = System.currentTimeMillis();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyy_hhmmss");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hhmmss a");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
         String timestamp = simpleDateFormat.format(date);
         final String currentTime = timeFormat.format(date);
@@ -462,51 +386,5 @@ public class selfieAttendance extends AppCompatActivity  implements LocationList
         mProgressBar.setVisibility(View.GONE);
         Toast.makeText(context, "Your presence have recorded", Toast.LENGTH_LONG).show();
     }
-
-
-   public   JSONObject getJSONfromURL(String url) {
-
-            // initialize
-            InputStream is = null;
-            String result = "";
-            JSONObject jObject = null;
-
-            // http post
-            try {
-
-
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost(url);
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                is = entity.getContent();
-
-            } catch (Exception e) {
-                Log.e("log_tag", "Error in http connection " + e.toString());
-            }
-
-            // convert response to string
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                is.close();
-                result = sb.toString();
-            } catch (Exception e) {
-                Log.e("log_tag", "Error converting result " + e.toString());
-            }
-
-            // try parse the string to a JSON object
-            try {
-                jObject = new JSONObject(result);
-            } catch (JSONException e) {
-                Log.e("log_tag", "Error parsing data " + e.toString());
-            }
-
-            return jObject;
-        }
 
 }

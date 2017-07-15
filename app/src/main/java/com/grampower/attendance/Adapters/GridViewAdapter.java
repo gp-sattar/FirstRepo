@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.grampower.attendance.R;
 
 /**
  * Created by samdroid on 7/6/17.

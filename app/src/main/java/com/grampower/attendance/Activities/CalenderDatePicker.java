@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import com.darwindeveloper.onecalendar.clases.Day;
 import com.darwindeveloper.onecalendar.views.OneCalendarView;
+import com.grampower.attendance.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

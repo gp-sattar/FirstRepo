@@ -29,10 +29,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.grampower.attendance.AttendaceData;
-import com.grampower.attendance.DataBase;
-import com.grampower.attendance.Task;
-import com.grampower.attendance.user;
+import com.grampower.attendance.Others.FieldForce;
+import com.grampower.attendance.pojos.AttendaceData;
+import com.grampower.attendance.Databases.DataBase;
+import com.grampower.attendance.pojos.Task;
+import com.grampower.attendance.pojos.user;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -66,8 +67,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Log.d("az", "ONPerformSync");
         if (isNetworkAvailable()) {
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
-            String email = sharedPreferences.getString("email", "");
+
+            String email = FieldForce.getInstance().getEmail();
             FirebaseApp.initializeApp(getContext());
             syncNotifications();
             profileSync();
@@ -113,7 +114,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
 
-    void uploadProfiliPic(byte[] data, final String email, final String name, final String password, final String gender, final String mobile) {
+   void uploadProfiliPic(byte[] data, final String email, final String name, final String password, final String gender, final String mobile) {
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendacemodule.appspot.com/");
         StorageReference myfileRef = storageReference.child("profilePics/" + email + ".jpg");
@@ -184,8 +185,9 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     void syncServerAttendanceDatabase(String date, String typeAttendance, String location, String curTime, String selfieUrl) {
 
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MYPREFERENCES", Context.MODE_PRIVATE);
-        String email = sharedPreferences.getString("email", "");
+
+        String email = FieldForce.getInstance().getEmail();
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
         AttendaceData todayAttend = new AttendaceData(curTime, selfieUrl, location);
         if (typeAttendance.equals("morning")) {

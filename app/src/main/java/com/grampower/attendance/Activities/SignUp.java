@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.grampower.attendance.R;
+import com.grampower.attendance.Others.Utils;
+import com.grampower.attendance.pojos.user;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -95,7 +98,7 @@ public class SignUp extends AppCompatActivity {
 
 
     void validateInfo(String textName,String textEmail,String textMobile,String textPassword,String textConfirmPassword, String mGender){
-        if(textMobile.length()!=0&&!textMobile.equals("")&&textMobile.length()==10&&Utils.isMobileNumberValid(textMobile)){
+        if(textMobile.length()!=0&&!textMobile.equals("")&&textMobile.length()==10&& Utils.isMobileNumberValid(textMobile)){
 
             if(textEmail.length()!=0&&!textEmail.equals("")&&Utils.isEmailValid(textEmail)){
 

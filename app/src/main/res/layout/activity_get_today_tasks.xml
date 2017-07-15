@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.grampower.attendance.GetTodayTasks">
+    tools:context="com.grampower.attendance.Activities.GetTodayTasks">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,34 +16,44 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/toolbarBackColor"
             android:layout_gravity="bottom"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
+            android:background="@color/toolbarBackColor"
             android:popupTheme="@style/AppTheme.PopupOverlay"
-            android:weightSum="1">
+            android:weightSum="1"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
 
-            <ImageButton
-                android:layout_width="?attr/actionBarSize"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/backAssignTask"
-                android:background="@color/toolbarBackColor"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                />
+                android:id="@+id/back_layout_tasks"
+                android:background="@drawable/back_layout_background">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="@dimen/toolbar_profile_diameter"
-                android:layout_height="@dimen/toolbar_profile_diameter"
-                 android:id="@+id/profileGetTasks"/>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileGetTasks"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/toolbar_profile_diameter"
+                    android:layout_height="@dimen/toolbar_profile_diameter"
+                    android:layout_marginRight="@dimen/dp_10"/>
+
+            </LinearLayout>
 
             <TextView
+                android:id="@+id/employeeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/minimum"
                 android:text="Tasks"
                 android:textColor="@color/black"
-                android:id="@+id/employeeName"
-                android:layout_marginLeft="@dimen/minimum"
-                android:textSize="@dimen/employeeName_size"/>
+                android:textSize="@dimen/employeeName_size" />
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -54,46 +63,45 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/recycler_margin_top"
         android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@color/white"
             android:id="@+id/topBar"
-            android:layout_height="@dimen/TaskSuccessor_height">
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/TaskSuccessor_height"
+            android:background="@color/white">
 
             <ImageButton
+                android:id="@+id/predecessor"
                 android:layout_width="@dimen/TaskSuccessor_height"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_chevron_left_black_24dp"
-                android:id="@+id/predecessor"
                 android:layout_alignParentLeft="true"
-                android:background="@color/white"
                 android:layout_marginLeft="@dimen/edittext_height"
-                />
+                android:background="@color/white"
+                android:src="@drawable/ic_chevron_left_black_24dp" />
 
             <TextView
+                android:id="@+id/taskTurn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="24dp"
-                android:id="@+id/taskTurn"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="8dp"
-                />
+                android:textSize="24dp" />
+
             <ImageButton
+                android:id="@+id/successor"
                 android:layout_width="@dimen/TaskSuccessor_height"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:id="@+id/successor"
-                android:src="@drawable/ic_chevron_right_black_24dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/edittext_height"
-                />
+                android:background="@color/white"
+                android:src="@drawable/ic_chevron_right_black_24dp" />
         </RelativeLayout>
 
-        <FrameLayout android:name="com.grampower.attendance.taskFragment"
+        <FrameLayout
             android:id="@+id/taskInfoFragment"
-            android:layout_height="match_parent"
+            android:name="com.grampower.attendance.taskFragment"
             android:layout_width="fill_parent"
-             />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

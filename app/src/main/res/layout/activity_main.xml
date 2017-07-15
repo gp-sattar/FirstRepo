@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
-tools:context="com.grampower.attendance.MainActivity">
+tools:context="com.grampower.attendance.Activities.MainActivity">
 
 <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
@@ -23,7 +23,7 @@ tools:context="com.grampower.attendance.MainActivity">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Control Panel"
+            android:text="Field Force"
             android:textColor="@color/black"
             android:textSize="@dimen/toolbar_text_size"/>
 
@@ -32,34 +32,42 @@ tools:context="com.grampower.attendance.MainActivity">
 
 </android.support.design.widget.AppBarLayout>
 
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="@dimen/recycler_margin_top"
     android:layout_height="match_parent">
 
-    <WebView
+   <android.support.v7.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:id="@+id/notification_recycler"
+       android:layout_above="@+id/gridLayout"
+       />
+
+    <View
         android:layout_width="match_parent"
-        android:id="@+id/marquee"
-        android:background="@color/light_black"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/minimum"
-        android:layout_marginLeft="@dimen/minimum"
-        android:layout_height="wrap_content"/>
+        android:layout_height="1dp"
+         android:layout_above="@+id/gridLayout"
+         android:background="#ffedcc"/>
 
     <GridView
         android:id="@+id/gridLayout"
-        android:numColumns="2"
+        android:numColumns="3"
         android:gravity="center"
         android:clickable="true"
         android:columnWidth="230dp"
         android:stretchMode="columnWidth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_alignParentBottom="true"
+        android:horizontalSpacing="2dp"
        />
-</LinearLayout>
+</RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+</RelativeLayout>

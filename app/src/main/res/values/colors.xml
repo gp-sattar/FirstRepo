@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#FF7F00</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textAreaBackground">#e7f3f1</color>
@@ -10,7 +10,7 @@
     <color name="light_green">#99ff99</color>
     <color name="light_color"> #f0ecc4</color>
     <color name="light_black"> #323232</color>
-    <color name="light_white"> #cccccc</color>
+    <color name="light_white">#b2b2b2</color>
     <color name="fade_green">#689570</color>
     <color name="dark_gray">#2F4F4F</color>
     <color name="taskSuccessor">#97d0c9</color>

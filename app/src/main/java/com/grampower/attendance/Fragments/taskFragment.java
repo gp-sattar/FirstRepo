@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.grampower.attendance.Activities.GetTodayTasks;
+import com.grampower.attendance.R;
 
 import java.text.SimpleDateFormat;
 

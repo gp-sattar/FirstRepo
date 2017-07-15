@@ -6,7 +6,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
 android:id="@+id/coordinatorLayout"
-tools:context="com.grampower.attendance.CalenderDatePicker">
+tools:context="com.grampower.attendance.Activities.CalenderDatePicker">
 
 <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
@@ -28,7 +28,7 @@ tools:context="com.grampower.attendance.CalenderDatePicker">
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:id="@+id/backDatePicker"
-            android:background="@color/toolbarBackColor"
+            android:background="@drawable/back_layout_background"
             android:src="@drawable/ic_arrow_back_black_24dp"
             />
 

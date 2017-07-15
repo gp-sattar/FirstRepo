@@ -12,44 +12,46 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.camera2.full" />
 
-    <application
-        android:name="android.support.multidex.MultiDexApplication"
+    <application xmlns:tools="http://schemas.android.com/tools"
+        android:name=".Others.FieldForce"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        xmlns:tools="http://schemas.android.com/tools"
         tools:replace="android:icon">
+        <activity android:name=".Activities.MainActivity"></activity>
 
-        <activity android:name=".MainActivity">
-        </activity>
-
-        <service
-            android:name=".syncAdapters.AuthenticatorService">
+        <service android:name=".syncAdapters.AuthenticatorService">
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"/>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
-
         <service
             android:name=".syncAdapters.syncService"
             android:exported="true"
-            android:process=":sync" >
+            android:process=":sync">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
+
             <meta-data
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
@@ -59,27 +61,28 @@
             android:name=".syncAdapters.stubProvider"
             android:authorities="com.grampower.attendance.syncAdapters"
             android:exported="false"
-            android:syncable="true"/>
+            android:syncable="true" />
 
-
-        <activity android:name=".SignUp"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".CalenderDatePicker" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.SignUp"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activities.CalenderDatePicker" />
+        <activity
+            android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="stateHidden"/>
-
-        <activity android:name=".selfieAttendance" />
-        <activity android:name=".profile"
-            android:windowSoftInputMode="stateHidden"/>
-
-        <activity android:name=".GetTodayTasks"
-            android:windowSoftInputMode="stateHidden"/>
-
-        <activity android:name=".SplashScreen">
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activities.selfieAttendance" />
+        <activity android:name=".Activities.OfflineAttendance" />
+        <activity
+            android:name=".Activities.profile"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activities.GetTodayTasks"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.pojos;
 
 /**
  * Created by samdroid on 29/5/17.

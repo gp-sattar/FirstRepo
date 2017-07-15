@@ -1,4 +1,4 @@
-package com.grampower.attendance;
+package com.grampower.attendance.Activities;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -8,11 +8,32 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.grampower.attendance.Adapters.GridViewAdapter;
+import com.grampower.attendance.Adapters.NotificationRecyclerAdapter;
+import com.grampower.attendance.Databases.DataBase;
+import com.grampower.attendance.Others.FieldForce;
+import com.grampower.attendance.R;
+import com.grampower.attendance.pojos.NotificationWrapper;
+
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.LocalDateTime;
+import org.joda.time.Minutes;
+import org.joda.time.Months;
+import org.joda.time.Seconds;
+import org.joda.time.Years;
+import org.joda.time.format.DateTimeFormat;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 
@@ -24,38 +45,43 @@ public class MainActivity extends FragmentActivity {
     public static final long SECONDS_PER_MINUTE = 60L;
     public static final long SYNC_INTERVAL_IN_MINUTES = 1L;
     public static final long SYNC_INTERVAL = SYNC_INTERVAL_IN_MINUTES * SECONDS_PER_MINUTE;
+   List<NotificationWrapper> notificationList;
 
     Account mAccount;
     ContentResolver mResolver;
     GridView mGridView;
-    WebView mWebView;
+
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-
+        notificationList=new ArrayList<>();
         String[] menulist = {"Attendance", "Profile", "Task View"};
-        int[] iconlist = {R.drawable.attendc,
-                R.drawable.user_icon,
-                R.drawable.task_icon,
-        };
+        int[] iconlist = {R.drawable.attendance_clicked, R.drawable.profile, R.drawable.tasks,};
 
-        startSyncAdapter();
+         mRecyclerView=(RecyclerView)findViewById(R.id.notification_recycler);
+         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+         mGridView = (GridView) findViewById(R.id.gridLayout);
 
-        mWebView = (WebView) findViewById(R.id.marquee);
-        mGridView = (GridView) findViewById(R.id.gridLayout);
+        loadNotification();
         setGridAdapter(menulist, iconlist);
+        startSyncAdapter();
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 switch (position) {
-
                     case 0:
-                        startActivity(new Intent(context, selfieAttendance.class));
+                        if(!FieldForce.getInstance().isNetworkAvailable()){
+                            startActivity(new Intent(context, OfflineAttendance.class));
+                        }else{
+                            startActivity(new Intent(context, selfieAttendance.class));
+                        }
+
                         finish();
                         break;
                     case 1:
@@ -70,7 +96,6 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        loadNotification();
 
     }
 
@@ -82,17 +107,15 @@ public class MainActivity extends FragmentActivity {
     void loadNotification() {
         DataBase ob = new DataBase(context);
         Cursor cursor = ob.getNotifications(ob);
-        String notifications = "";
         if (cursor.moveToFirst()) {
             do {
+                String key=cursor.getString(1);
                 String notification = cursor.getString(2);
-                notifications = notifications + "<marquee  style='margin-bottom:10px; 'behavior='scroll' direction='left' scrollamount=3><span style='font-size:100%;color:red;'>&starf;</span>"
-                        + notification + "</marquee>";
-
+                String diff=getTimeDifference(key);
+                notificationList.add(new NotificationWrapper(diff,notification));
             } while (cursor.moveToNext());
-            String summary = "<html><div style='border:3px solid #ffa500;'><table><tr><div style='height:30px;background-color:#ffa500'><text style='gravity:center;'>Current</text></div></tr><tr><FONT color='#000000'>" + notifications + "</FONT></tr></table></div></html>";
-            mWebView.loadData(summary, "text/html", "utf-8");
-
+            NotificationRecyclerAdapter adapter=new NotificationRecyclerAdapter(notificationList,context);
+            mRecyclerView.setAdapter(adapter);
         } else {
             Toast.makeText(context, "No Notification are  available", Toast.LENGTH_LONG).show();
         }
@@ -128,5 +151,43 @@ public class MainActivity extends FragmentActivity {
         startActivity(startMain);
     }
 
+    public String getTimeDifference(String notifytime){
+        String timeDiff;
+        long date=System.currentTimeMillis();
+        SimpleDateFormat timeStampFormat=new SimpleDateFormat("yyMMddHHmmss");
+        String timeStamp=timeStampFormat.format(date);
+
+        LocalDateTime dateTime = LocalDateTime.parse(notifytime, DateTimeFormat.forPattern("yyMMddHHmmss"));
+        LocalDateTime dateTime2 = LocalDateTime.now();
+        Years diffInYears=Years.yearsBetween(dateTime, dateTime2);
+        Months diffInMoths=Months.monthsBetween(dateTime, dateTime2);
+        Days diffInDays = Days.daysBetween(dateTime, dateTime2);
+        Hours diffInHours=Hours.hoursBetween(dateTime, dateTime2);
+        Minutes diffInMinutes=Minutes.minutesBetween(dateTime, dateTime2);
+        Seconds diffInSeconds=Seconds.secondsBetween(dateTime, dateTime2);
+
+        if(diffInYears.getYears()!=0){
+            timeDiff=diffInYears.getYears()+" years ago";
+
+        }else if(diffInMoths.getMonths()!=0){
+            timeDiff=diffInMoths.getMonths()+" months ago";
+
+        }else if(diffInDays.getDays()!=0){
+            timeDiff=diffInDays.getDays()+" days ago";
+
+        }else if(diffInHours.getHours()!=0){
+            timeDiff=diffInHours.getHours()+" hours ago";
+
+        }else if(diffInMinutes.getMinutes()!=0){
+            timeDiff=diffInMinutes.getMinutes()+" minutes ago";
+
+        }else if(diffInSeconds.getSeconds()!=0){
+            timeDiff=diffInSeconds.getSeconds()+" seconds ago";
+        }else{
+           timeDiff="just now";
+        }
+        return timeDiff;
+
+    }
 
 }

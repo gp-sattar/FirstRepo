@@ -1,136 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:fitsSystemWindows="true"
-android:id="@+id/coordinatorLayout"
-tools:context="com.grampower.attendance.selfieAttendance">
-
-<android.support.design.widget.AppBarLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.grampower.attendance.Activities.selfieAttendance">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/toolbarBackColor"
-        android:layout_gravity="bottom"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ImageButton
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="match_parent"
-            android:id="@+id/backSelfieAttendance"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
             android:background="@color/toolbarBackColor"
-            android:src="@drawable/ic_arrow_back_black_30dp"
-             />
+            android:weightSum="1"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/toolbar_profile_diameter"
-            android:layout_height="@dimen/toolbar_profile_diameter"
-            android:id="@+id/profile_selfie_toolbar"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Attendance"
-            android:textColor="@color/black"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/minimum"
-            android:textSize="@dimen/dp_20"/>
+            <LinearLayout
+                android:id="@+id/backLayout_selfie"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/back_layout_background"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/backSelfieAttendance"
+                    android:layout_width="@dimen/back_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="#00000000"
+                    android:src="@drawable/ic_arrow_back_black_30dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_selfie_toolbar"
+                    android:layout_width="@dimen/toolbar_profile_diameter"
+                    android:layout_height="@dimen/toolbar_profile_diameter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/minimum" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/minimum"
+                android:text="Attendance"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dp_20" />
 
 
-    </android.support.v7.widget.Toolbar>
-</android.support.design.widget.AppBarLayout>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/recycler_margin_top"
-    android:layout_height="match_parent">
-
-
-    <ProgressBar
-        android:id="@+id/toolbar_progress_bar_selfie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="#795548"
-        android:indeterminateTintMode="src_in"
-        android:layout_centerInParent="true"
-        android:layout_gravity="right"
-        android:visibility="invisible"
-        />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
-
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dp_15"
-        android:layout_height="70dp"
-        android:id="@+id/startAttendance"
-        android:clickable="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:background="@drawable/button_shape">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/recycler_margin_top">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:src="@drawable/startattendance"/>
-        <TextView
+
+        <ProgressBar
+            android:id="@+id/toolbar_progress_bar_selfie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="Start Attendance"
-            android:layout_marginLeft="@dimen/btn_text_left_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/topMargin_attendanceButton"
-            android:textSize="@dimen/dp_25"/>
+            android:layout_centerInParent="true"
+            android:layout_gravity="right"
+            android:indeterminateTint="#795548"
+            android:indeterminateTintMode="src_in"
+            android:visibility="invisible" />
 
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/endAttendance"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/recycler_margin_top"
-        android:layout_height="70dp"
-        android:clickable="true"
-        android:background="@drawable/button_shape">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:src="@drawable/endattendace"/>
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/attendanceButton"
-            android:text="End Attendance"
-            android:textColor="@color/black"
-            android:layout_marginLeft="@dimen/btn_text_left_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/topMargin_attendanceButton"
-            android:textSize="@dimen/dp_25"/>
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
+
+            <RelativeLayout
+                android:id="@+id/startAttendance"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/dp_15"
+                android:background="@drawable/button_shape"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/startattendance" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/btn_text_left_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/topMargin_attendanceButton"
+                    android:text="Start Attendance"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dp_25" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/endAttendance"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/recycler_margin_top"
+                android:background="@drawable/button_shape"
+                android:clickable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/endattendace" />
+
+                <TextView
+                    android:id="@+id/attendanceButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/btn_text_left_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/topMargin_attendanceButton"
+                    android:text="End Attendance"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dp_25" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
     </RelativeLayout>
-
-    </LinearLayout>
-</RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

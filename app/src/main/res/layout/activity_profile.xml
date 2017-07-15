@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.grampower.attendance.profile">
+    tools:context="com.grampower.attendance.Activities.profile">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="match_parent"
                 android:id="@+id/back_profile"
-                android:background="@color/toolbarBackColor"
+                android:background="@drawable/back_layout_background"
                 android:src="@drawable/ic_arrow_back_black_24dp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -168,46 +168,6 @@
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:background="#c0c0c0"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_12"
-            android:layout_marginBottom="@dimen/dp_12"
-            android:orientation="horizontal">
-
-            <ImageView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_lock_outline_black_24dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/passwordProfile"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/icon_text_margin"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:textSize="@dimen/dp_15"
-            />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editPassword"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:background="@null"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_edit_black_24dp"/>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#c0c0c0"/>
-
-
-
 
 </LinearLayout>
 
