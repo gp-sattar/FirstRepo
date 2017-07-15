@@ -431,6 +431,7 @@ public class OfflineAttendance extends AppCompatActivity implements LocationList
             progressDialog.show();
         }
 
+
         @Override
         protected Location doInBackground(Void... params) {
             Location mLocation=null;
