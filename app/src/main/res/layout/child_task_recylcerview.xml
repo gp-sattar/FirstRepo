@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="140dp"
+    android:id="@+id/radio_line_layout"
+    android:orientation="vertical">
+    <View
+        android:layout_width="1dp"
+         android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/dp_20"
+        android:id="@+id/uppper_line"
+         android:background="#000000"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radio_icon"
+        android:src="@drawable/radio_small_icon"/>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:id="@+id/lower_line"
+         android:layout_gravity="center_horizontal"
+        android:background="#000000"/>
+</LinearLayout>
+
+
+    <View
+        android:layout_width="20dp"
+        android:layout_height="1dp"
+        android:id="@+id/horizontal_line_child"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_toRightOf="@+id/radio_line_layout"
+        android:background="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/dp_15"
+        android:id="@+id/tv_task_name"
+        android:layout_marginLeft="@dimen/minimum"
+        android:layout_toRightOf="@+id/horizontal_line_child"
+        android:textColor="@color/black"
+         android:text="Pending Tasks"/>
+
+</RelativeLayout>

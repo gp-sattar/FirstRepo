@@ -89,7 +89,9 @@ public class MainActivity extends FragmentActivity {
                         finish();
                         break;
                     case 2:
-                        startActivity(new Intent(context, CalenderDatePicker.class));
+                        //startActivity(new Intent(context, CalenderDatePicker.class));
+
+                        startActivity(new Intent(context,TaskRelatedActions.class));
                         finish();
                         break;
                 }

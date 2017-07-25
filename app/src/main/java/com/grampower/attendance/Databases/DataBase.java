@@ -16,7 +16,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     Context context;
     public static final int database_version = 1;
-    public String sql_query_profile="create table profile (email varchar(30), name varchar(30),password varchar(25),gender varchar(6),mobile varchar(10),profile_image_data blob,syncStatus int);";
+    public String sql_query_profile="create table profile (email varchar(30), name varchar(30),password varchar(25),gender varchar(6),mobile varchar(10),profile_image_data MEDIUMTEXT,syncStatus int);";
     public String sql_query_task="create table tasks (id integer primary key autoincrement, date varchar(8),taskid varchar(6) not NULL, taskstatement varchar(20), status varchar(20), detail varchar(200),syncStatus int);";
     public String sql_query_attendance="create table attendance (id integer primary key autoincrement, date varchar(8),attendanceType varchar(10),currentLocation varchar(40),currentTime varchar(40),selfie_name varchar(40), selfie_data blob, syncStatus int);";
     public String sql_query_notifications="create table notifications (id integer primary key autoincrement,notify_id varchar(20), notification varchar(300));";

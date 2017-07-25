@@ -28,12 +28,12 @@
                 android:layout_height="match_parent"
                 android:id="@+id/back_profile"
                 android:background="@drawable/back_layout_background"
-                android:src="@drawable/ic_arrow_back_black_24dp"/>
+                android:src="@drawable/ic_arrow_back_white_24dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:id="@+id/employeeName"
                 android:layout_marginLeft="@dimen/minimum"
                 android:textSize="@dimen/toolbar_text_size"/>

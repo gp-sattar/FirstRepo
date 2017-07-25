@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -18,11 +17,9 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +28,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -72,8 +67,7 @@ public class OfflineAttendance extends AppCompatActivity implements LocationList
     Location mLastLocation;
     ProgressBar mProgressBar;
     ProgressDialog progressDialog;
-    RelativeLayout mStartAttend, mEndAttend;
-    CoordinatorLayout mCoordinatorLayout;
+       CoordinatorLayout mCoordinatorLayout;
     protected GoogleApiClient mGoogleApiClient;
     OfflineLocationFinder gps;
     LocationManager mLocationManager;
@@ -102,8 +96,8 @@ public class OfflineAttendance extends AppCompatActivity implements LocationList
 */
         context = this;
         mProgressBar = (ProgressBar) findViewById(R.id.toolbar_progress_bar_selfie);
-        mStartAttend = (RelativeLayout) findViewById(R.id.startAttendance);
-        mEndAttend = (RelativeLayout) findViewById(R.id.endAttendance);
+     ////   mStartAttend = (RelativeLayout) findViewById(R.id.startAttendance);
+      //  mEndAttend = (RelativeLayout) findViewById(R.id.endAttendance);
         mBack = (LinearLayout) findViewById(R.id.backLayout_selfie);
         mProfileView = (CircleImageView) findViewById(R.id.profile_selfie_toolbar);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
@@ -130,7 +124,7 @@ public class OfflineAttendance extends AppCompatActivity implements LocationList
         });
 
 
-        mStartAttend.setOnClickListener(new View.OnClickListener() {
+       /* mStartAttend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 long date = System.currentTimeMillis();
@@ -194,7 +188,7 @@ public class OfflineAttendance extends AppCompatActivity implements LocationList
 
             }
         });
-
+*/
        new waitForLocation().execute();
     }
 
@@ -467,7 +461,7 @@ public class OfflineAttendance extends AppCompatActivity implements LocationList
 
             } catch (Exception e) {
                 e.printStackTrace();
-//
+
             }
             return mLocation;
 

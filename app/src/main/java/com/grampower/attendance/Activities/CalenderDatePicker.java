@@ -15,8 +15,8 @@ import java.util.Date;
 
 public class CalenderDatePicker extends AppCompatActivity {
 
-
     ImageButton mBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,7 @@ public class CalenderDatePicker extends AppCompatActivity {
           mBack.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  startActivity(new Intent(CalenderDatePicker.this,MainActivity.class));
+                  startActivity(new Intent(CalenderDatePicker.this,TaskRelatedActions.class));
                   finish();
               }
           });
@@ -72,6 +72,6 @@ public class CalenderDatePicker extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(CalenderDatePicker.this,MainActivity.class));
+        startActivity(new Intent(CalenderDatePicker.this,TaskRelatedActions.class));
     }
 }

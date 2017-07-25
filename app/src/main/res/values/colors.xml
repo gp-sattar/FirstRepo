@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF7F00</color>
+    <color name="progress_circle">#77FF7F00</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="textAreaBackground">#e7f3f1</color>
@@ -19,6 +20,8 @@
     <color name="btn_back">#329999</color>
     <color name="background_screen_color">#f0f8ff</color>
     <color name="orange">#FF7F00</color>
+    <color name="transparent">#00000000</color>
+    <color name="hole_background">#1976d2</color>
 
 
 </resources>

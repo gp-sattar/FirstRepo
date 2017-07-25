@@ -3,9 +3,17 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="minimum">5dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="dp_15">15dp</dimen>
     <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_17">17dp</dimen>
+    <dimen name="dp_18">18dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
     <dimen name="textsize_new_account_link">20dp</dimen>
     <dimen name="button_text_size">18dp</dimen>
     <dimen name="topMargin_attendanceButton">20dp</dimen>
@@ -15,18 +23,16 @@
     <dimen name="btn_text_left_margin">80dp</dimen>
     <dimen name="recycler_margin_top">55dp</dimen>
     <dimen name="circular_image_diameter">100dp</dimen>
-    <dimen name="dp_20">20dp</dimen>
-    <dimen name="dp_25">25dp</dimen>
-    <dimen name="dp_30">30dp</dimen>
     <dimen name="edittext_input_text_size">18dp</dimen>
     <dimen name="edittext_height">40dp</dimen>
     <dimen name="button_width_popup">100sp</dimen>
-    <dimen name="TaskSuccessor_height">45sp</dimen>
+    <dimen name="TaskSuccessor_height">45dp</dimen>
     <dimen name="Tag_Size">20dp</dimen>
     <dimen name="toolbar_text_size">20dp</dimen>
     <dimen name="icon_text_margin">50dp</dimen>
     <dimen name="toolbar_profile_diameter">40dp</dimen>
     <dimen name="task_assign_btn_width">15dp</dimen>
     <dimen name="back_btn_width">35dp</dimen>
+    <dimen name="successor_length">35dp</dimen>
 
 </resources>

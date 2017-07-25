@@ -101,24 +101,25 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         DataBase dataBase = new DataBase(getContext());
         Cursor crsr = dataBase.getProfileData(dataBase);
         String email = "", name = "", password = "", gender = "", mobile = "";
-        byte[] image_data = null;
+        String image_data = null;
         if (crsr.moveToFirst()) {
             email = crsr.getString(0);
             name = crsr.getString(1);
             password = crsr.getString(2);
             gender = crsr.getString(3);
             mobile = crsr.getString(4);
-            image_data = crsr.getBlob(5);
+            image_data = crsr.getString(5);
         }
         uploadProfiliPic(image_data, email, name, password, gender, mobile);
     }
 
 
-   void uploadProfiliPic(byte[] data, final String email, final String name, final String password, final String gender, final String mobile) {
+   void uploadProfiliPic(String data, final String email, final String name, final String password, final String gender, final String mobile) {
 
-        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendacemodule.appspot.com/");
+       byte[] image_data = Base64.decode(data, Base64.DEFAULT);
+       StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://attendacemodule.appspot.com/");
         StorageReference myfileRef = storageReference.child("profilePics/" + email + ".jpg");
-        UploadTask uploadTask = myfileRef.putBytes(data);
+        UploadTask uploadTask = myfileRef.putBytes(image_data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {

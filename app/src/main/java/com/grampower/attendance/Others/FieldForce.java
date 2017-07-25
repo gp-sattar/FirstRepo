@@ -3,8 +3,14 @@ package com.grampower.attendance.Others;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Base64;
+
+import com.grampower.attendance.Databases.DataBase;
 
 /**
  * Created by sam on 14/7/17.
@@ -14,7 +20,7 @@ public class FieldForce extends Application {
 
 
     public static FieldForce singleton;
-
+    Context context;
 
     public static FieldForce getInstance() {
         return singleton;
@@ -29,6 +35,7 @@ public class FieldForce extends Application {
     public void onCreate() {
         super.onCreate();
         singleton = this;
+        context = this;
     }
 
     public void setAccountDetails(String email, String password, String name, String url) {
@@ -54,7 +61,6 @@ public class FieldForce extends Application {
     }
 
 
-
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -62,5 +68,18 @@ public class FieldForce extends Application {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public Bitmap getProfileBitmap() {
+        Bitmap imageBitmap = null;
+        DataBase dataBase = new DataBase(context);
+        Cursor crsr = dataBase.getProfileData(dataBase);
+        if (crsr.moveToFirst()) {
+            String image_string = crsr.getString(5);
+            byte[] image_data = Base64.decode(image_string, Base64.DEFAULT);
+            if (image_data != null) {
+                imageBitmap = BitmapFactory.decodeByteArray(image_data, 0, image_data.length);
+            }
+        }
+        return imageBitmap;
+    }
 
 }

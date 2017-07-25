@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.grampower.attendance.R;
-import com.grampower.attendance.Others.Utils;
 import com.grampower.attendance.pojos.user;
 
 import java.text.SimpleDateFormat;
@@ -35,7 +34,7 @@ import static com.grampower.attendance.R.id.register;
 
 public class SignUp extends AppCompatActivity {
 
-    TextInputEditText  mMobile, mName,mEmail,mPassword, mConfirmPassword;
+    TextInputEditText mMobile, mName, mEmail, mPassword, mConfirmPassword;
     Button mRegister;
     ImageButton mBack;
     ProgressBar mProgressBar;
@@ -43,120 +42,115 @@ public class SignUp extends AppCompatActivity {
     Context context;
     RadioGroup radioGroup;
     RadioButton gender;
-    final String TAG="Attendance";
+    final String TAG = "Attendance";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     context=this;
+        context = this;
         setContentView(R.layout.activity_sign_up);
-          mBack=(ImageButton)findViewById(R.id.back_Register);
-         mMobile=(TextInputEditText)findViewById(R.id.mono);
-         mName=(TextInputEditText)findViewById(R.id.name);
-         mEmail=(TextInputEditText)findViewById(R.id.email);
-          mPassword=(TextInputEditText)findViewById(R.id.password);
-        mConfirmPassword=(TextInputEditText)findViewById(R.id.confirmpassword);
-          mRegister=(Button)findViewById(register);
-          mProgressBar=(ProgressBar)findViewById(R.id.toolbar_progress_bar_signup);
-          radioGroup=(RadioGroup)findViewById(R.id.gender);
-
-           mBack.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   startActivity(new Intent(SignUp.this,LoginActivity.class));
-                   finish();
-               }
-           });
-          mRegister.setOnClickListener(new View.OnClickListener() {
-       @Override
-       public void onClick(View v) {
-
-           int selectedId = radioGroup.getCheckedRadioButtonId();
-           gender = (RadioButton)findViewById(selectedId);
-           final String mGender=gender.getText().toString();
-           String textMobile=mMobile.getText().toString().trim();
-           String textName=mName.getText().toString().trim();
-           String textEmail=mEmail.getText().toString().trim();
-           mail=textEmail.split("\\.")[0];
-           String textPassword=mPassword.getText().toString().trim();
-           String textConfirmPassword=mConfirmPassword.getText().toString().trim();
-              if(isNetworkAvailable()){
-                  validateInfo(textName,textEmail,textMobile,textPassword,textConfirmPassword,mGender);
-              }else{
-                  new SweetAlertDialog(context)
-                          .setTitleText("Internet Connection")
-                          .setContentText("Internet Connection is required for Sign Up")
-                          .show();
-              }
-
-       }
-   });
+        mMobile = (TextInputEditText) findViewById(R.id.mono);
+        mName = (TextInputEditText) findViewById(R.id.name);
+        mEmail = (TextInputEditText) findViewById(R.id.email);
+       // mPassword = (TextInputEditText) findViewById(R.id.password);
+       // mConfirmPassword = (TextInputEditText) findViewById(R.id.confirmpassword);
+        mRegister = (Button) findViewById(register);
+        mProgressBar = (ProgressBar) findViewById(R.id.toolbar_progress_bar_signup);
+        radioGroup = (RadioGroup) findViewById(R.id.gender);
 
 
+       /* mRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                gender = (RadioButton) findViewById(selectedId);
+                final String mGender = gender.getText().toString();
+                String textMobile = mMobile.getText().toString().trim();
+                String textName = mName.getText().toString().trim();
+                String textEmail = mEmail.getText().toString().trim();
+                mail = textEmail.split("\\.")[0];
+                String textPassword = mPassword.getText().toString().trim();
+
+
+                if (isNetworkAvailable()) {
+                    //validateInfo(textName, textEmail, textMobile, textPassword, textConfirmPassword, mGender);
+                } else {
+                    new SweetAlertDialog(context)
+                            .setTitleText("Internet Connection")
+                            .setContentText("Internet Connection is required for Sign Up")
+                            .show();
+                }
+
+            }
+        });
+
+*/
     }
 
+/*
+
+    void validateInfo(String textName, String textEmail, String textMobile, String textPassword, String textConfirmPassword, String mGender) {
+        if (textMobile.length() != 0 && !textMobile.equals("") && textMobile.length() == 10 && Utils.isMobileNumberValid(textMobile)) {
+
+            if (textEmail.length() != 0 && !textEmail.equals("") && Utils.isEmailValid(textEmail)) {
+
+                if (textName.length() != 0 && !textName.equals("") && Utils.isNameValid(textName)) {
+
+                    if (textPassword.length() != 0 && !textPassword.equals("")) {
+
+                        if (textConfirmPassword.length() != 0 && !textConfirmPassword.equals("")) {
 
 
-    void validateInfo(String textName,String textEmail,String textMobile,String textPassword,String textConfirmPassword, String mGender){
-        if(textMobile.length()!=0&&!textMobile.equals("")&&textMobile.length()==10&& Utils.isMobileNumberValid(textMobile)){
+                            if (textPassword.equals(textConfirmPassword)) {
 
-            if(textEmail.length()!=0&&!textEmail.equals("")&&Utils.isEmailValid(textEmail)){
+                                createAuthentication(textName, textEmail, textMobile, textPassword, mGender);
 
-                if(textName.length()!=0&&!textName.equals("")&&Utils.isNameValid(textName)){
-
-                    if(textPassword.length()!=0 && !textPassword.equals("")){
-
-                        if(textConfirmPassword.length()!=0 && !textConfirmPassword.equals("")){
-
-
-                            if(textPassword.equals(textConfirmPassword)){
-
-                                createAuthentication(textName,textEmail,textMobile,textPassword,mGender);
-
-                            }else{
+                            } else {
                                 mConfirmPassword.setError("Please enter the same password again");
                             }
 
-                        }else{
+                        } else {
                             mConfirmPassword.setError("Please enter the password to confirm");
                         }
-                    }else{
+                    } else {
                         mPassword.setError("Please enter the password");
                     }
 
-                }else{
+                } else {
                     mName.setError("Please enter Valid Name");
                 }
-            }else{
+            } else {
                 mEmail.setError("Please enter Valid Email Address");
             }
-        }else{
+        } else {
             mMobile.setError("Please enter Valid Mobile Number");
         }
 
 
     }
+*/
 
-    void createAuthentication(String textName,String textEmail,String textMobile,final String textPassword,String mGender){
+    void createAuthentication(String textName, String textEmail, String textMobile, final String textPassword, String mGender) {
 
-        final FirebaseAuth authen=FirebaseAuth.getInstance();
-        long date= System.currentTimeMillis();
-        SimpleDateFormat dateFormat=new SimpleDateFormat("dd_MM_yy");
-        final String todayDate=dateFormat.format(date);
-        final user newUser=new user(textMobile,textEmail,textName,textPassword,mGender);
+        final FirebaseAuth authen = FirebaseAuth.getInstance();
+        long date = System.currentTimeMillis();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
+        final String todayDate = dateFormat.format(date);
+        final user newUser = new user(textMobile, textEmail, textName, textPassword, mGender);
         mProgressBar.setVisibility(View.VISIBLE);
-        authen.createUserWithEmailAndPassword(textEmail,textPassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+        authen.createUserWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull com.google.android.gms.tasks.Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
-                    addNewuser(newUser,todayDate);
+                if (task.isSuccessful()) {
+                    addNewuser(newUser, todayDate);
                     mProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),"You have registered successfully",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignUp.this,LoginActivity.class));
+                    Toast.makeText(getApplicationContext(), "You have registered successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignUp.this, LoginActivity.class));
                     finish();
 
-                }else{
+                } else {
                     new SweetAlertDialog(context).setTitleText("Oops!").setContentText("Something wrong with server , Try Agin!").show();
                     //Toast.makeText(getApplicationContext(),"Try Again!!",Toast.LENGTH_LONG).show();
                 }
@@ -165,19 +159,18 @@ public class SignUp extends AppCompatActivity {
     }
 
 
-
-    void addNewuser(user newUser, String date){
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("users");
-        Map<String,Object>  temp=new HashMap<>();
-        temp.put(mail,"profile");
-        temp.put(mail,"attendance");
-        temp.put(mail,"tasks");
+    void addNewuser(user newUser, String date) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        Map<String, Object> temp = new HashMap<>();
+        temp.put(mail, "profile");
+        temp.put(mail, "attendance");
+        temp.put(mail, "tasks");
         databaseReference.updateChildren(temp);
-        Map<String,Object> attendance,tasks;
-        attendance=new HashMap<>();
-        attendance.put(date,"Welcome to GramPower");
-        tasks=new HashMap<>();
-        tasks.put(date,"Your First task to rewind your college days");
+        Map<String, Object> attendance, tasks;
+        attendance = new HashMap<>();
+        attendance.put(date, "Welcome to GramPower");
+        tasks = new HashMap<>();
+        tasks.put(date, "Your First task to rewind your college days");
         databaseReference.child(mail).child("profile").setValue(newUser);
         databaseReference.child(mail).child("attendance").updateChildren(attendance);
         databaseReference.child(mail).child("tasks").updateChildren(tasks);
@@ -201,7 +194,7 @@ public class SignUp extends AppCompatActivity {
 
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
-                = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

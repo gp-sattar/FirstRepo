@@ -16,17 +16,17 @@
     </string>
     <string name="new_account">Create new Account? </string>
     <string name="attendancePlease">Click Selfie for Attendace</string>
-    <string name="monoHint">Mobile Number</string>
-    <string name="NameHint">Name</string>
-    <string name="emailHint">Email</string>
+    <string name="monoHint">MOBILE NUMBER</string>
+    <string name="NameHint">NAME</string>
+    <string name="emailHint">EMAIL</string>
     <string name="passwordHint">Password</string>
     <string name="new_task">Assign Task</string>
     <string name="check_Report">Check Report</string>
     <string name="employee">Employees</string>
     <string name="assign_this_task">Assign Task</string>
     <string name="one_more_task">New Task</string>
-    <string name="radio_male">Male</string>
-    <string name="radio_female">Female</string>
+    <string name="radio_male">MALE</string>
+    <string name="radio_female">FEMALE</string>
     <string name="radio_complete">Complete</string>
     <string name="radio_pending">Pending</string>
     <string name="forgot_password"><u>Forgot Password?</u></string>

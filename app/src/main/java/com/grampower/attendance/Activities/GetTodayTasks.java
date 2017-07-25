@@ -50,10 +50,10 @@ public class GetTodayTasks extends AppCompatActivity {
         String date = intent.getExtras().getString("date");
 
         mProfile = (CircleImageView) findViewById(R.id.profileGetTasks);
-        mTopBar = (RelativeLayout) findViewById(R.id.topBar);
+      //  mTopBar = (RelativeLayout) findViewById(R.id.topBar);
         mPredecesoor = (ImageButton) findViewById(R.id.predecessor);
         mSuccessor = (ImageButton) findViewById(R.id.successor);
-        mTaskTurn = (TextView) findViewById(R.id.taskTurn);
+        //mTaskTurn = (TextView) findViewById(R.id.taskTurn);
         mBackLayout = (LinearLayout) findViewById(R.id.back_layout_tasks);
         FragManager = getFragmentManager();
 
@@ -99,7 +99,7 @@ public class GetTodayTasks extends AppCompatActivity {
             transaction.commit();
 
         } else {
-            mTopBar.setVisibility(View.GONE);
+           // mTopBar.setVisibility(View.GONE);
             FragmentTransaction transaction = FragManager.beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putString("data", "No");
@@ -124,7 +124,7 @@ public class GetTodayTasks extends AppCompatActivity {
 
                 currentTask = (currentTask - 1 + taskListSize) % taskListSize;
                 Task firstTask = listOfTodayTask.get(currentTask);
-                mTaskTurn.setText((currentTask + 1) + "/" + taskListSize);
+               // mTaskTurn.setText((currentTask + 1) + "/" + taskListSize);
                 FragmentTransaction transaction = FragManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putString("data", "Yes");
@@ -144,7 +144,7 @@ public class GetTodayTasks extends AppCompatActivity {
 
                 currentTask = (currentTask + 1) % taskListSize;
                 Task firstTask = listOfTodayTask.get(currentTask);
-                mTaskTurn.setText((currentTask + 1) + "/" + taskListSize);
+               // mTaskTurn.setText((currentTask + 1) + "/" + taskListSize);
                 FragmentTransaction transaction = FragManager.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putString("data", "Yes");

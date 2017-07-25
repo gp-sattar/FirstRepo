@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/screen_background4"
+    tools:context="com.grampower.attendance.Activities.RollSelector">
+
+<com.wonderkiln.blurkit.BlurLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:downscaleFactor=".6">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_marginTop="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_grampower_256dp"/>
+
+
+            <com.grampower.attendance.CustomTextviews.CustomTextViewNeoSansBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join us as"
+                android:layout_marginTop="170dp"
+                android:textStyle="italic|bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/dp_30"
+                 android:textColor="@color/white"/>
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_marginLeft="@dimen/dp_10"
+                  android:layout_marginRight="@dimen/dp_10"
+                  android:orientation="horizontal"
+                  android:layout_gravity="center_horizontal"
+                  android:layout_marginTop="@dimen/dp_10"
+                  android:layout_height="50dp">
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:text="Technician"
+                      android:gravity="center"
+                      android:paddingLeft="@dimen/dp_10"
+                      android:paddingRight="@dimen/dp_10"
+                      android:textColor="@color/white"
+                      android:textSize="@dimen/dp_18"
+                       android:background="@drawable/curved_corner_transparent_background"/>
+
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="match_parent"
+                      android:text="Supervisor"
+                      android:gravity="center"
+                      android:layout_marginLeft="@dimen/dp_40"
+                      android:paddingLeft="@dimen/dp_10"
+                      android:paddingRight="@dimen/dp_10"
+                      android:textColor="@color/white"
+                      android:textSize="@dimen/dp_18"
+                      android:background="@drawable/curved_corner_transparent_background"/>
+
+              </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Assistant Manager"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp_18"
+                android:background="@drawable/curved_corner_transparent_background"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account?"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/dp_20"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in now"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textStyle="bold"
+                android:id="@+id/tv_sign_in"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/dp_20"/>
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+</com.wonderkiln.blurkit.BlurLayout>
+</android.support.design.widget.CoordinatorLayout>
