@@ -43,7 +43,7 @@ public class MainActivity extends FragmentActivity {
     public static final String ACCOUNT_TYPE = "com.grampower";
     public static final String ACCOUNT = "dummyaccount";
     public static final long SECONDS_PER_MINUTE = 60L;
-    public static final long SYNC_INTERVAL_IN_MINUTES = 1L;
+    public static final long SYNC_INTERVAL_IN_MINUTES = 30L;
     public static final long SYNC_INTERVAL = SYNC_INTERVAL_IN_MINUTES * SECONDS_PER_MINUTE;
    List<NotificationWrapper> notificationList;
 
