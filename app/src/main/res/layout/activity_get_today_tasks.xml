@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.grampower.attendance.Activities.GetTodayTasks">
+    tools:context="com.grampower.fieldforce.Activities.GetTodayTasks">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
 
         <FrameLayout
             android:id="@+id/taskInfoFragment"
-            android:name="com.grampower.attendance.taskFragment"
+            android:name="com.grampower.fieldforce.taskFragment"
             android:layout_width="fill_parent"
             android:layout_height="match_parent" />
 

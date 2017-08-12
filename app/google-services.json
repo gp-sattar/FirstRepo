@@ -49,6 +49,68 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569362041568:android:81c3750ecddf40e2",
+        "android_client_info": {
+          "package_name": "com.grampower.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569362041568-0ajkplqa20vbe39ri3l5hrprtttlrd66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClzDn6C_D_sbrrkWXP4AMpfzDixkSpGDw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569362041568:android:d12be99cc462b840",
+        "android_client_info": {
+          "package_name": "com.grampower.fieldforce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569362041568-0ajkplqa20vbe39ri3l5hrprtttlrd66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClzDn6C_D_sbrrkWXP4AMpfzDixkSpGDw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"

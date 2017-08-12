@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.grampower.fieldforce.Activities.CommentWithTag">
+
+
+        <org.apmem.tools.layouts.FlowLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curved_corner_transparent_background"
+            android:id="@+id/fl_tagged_persons"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/actv_tag_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="enter"
+                android:layout_marginLeft="5dp"
+                android:focusable="true"
+                android:dropDownWidth="fill_parent"
+                android:focusableInTouchMode="true"
+                android:background="@color/transparent"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </org.apmem.tools.layouts.FlowLayout>
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

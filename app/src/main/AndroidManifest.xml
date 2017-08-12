@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.grampower.attendance">
+    package="com.grampower.fieldforce">
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -33,8 +33,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".Activities.MainActivity" />
-
         <service android:name=".syncAdapters.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
@@ -59,7 +57,7 @@
 
         <provider
             android:name=".syncAdapters.stubProvider"
-            android:authorities="com.grampower.attendance.syncAdapters"
+            android:authorities="com.grampower.fieldforce.syncAdapters"
             android:exported="false"
             android:syncable="true" />
 
@@ -71,7 +69,7 @@
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Activities.selfieAttendance" />
+        <activity android:name=".Activities.OnlineAttendance" />
         <activity android:name=".Activities.OfflineAttendance" />
         <activity
             android:name=".Activities.profile"
@@ -87,23 +85,34 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.TaskRelatedActions" />
-
-        <activity android:name=".Activities.RollSelector">
-        </activity>
-
-        <activity android:name=".Activities.AttendancePanel">
-        </activity>
+        <activity android:name=".Activities.RollSelector" />
+        <activity android:name=".Activities.AttendancePanel" />
 
         <receiver
             android:name=".Activities.LocationTracker"
             android:enabled="true"
-            android:exported="false" >
+            android:process=":remote" />
+        <receiver
+            android:name=".Others.InternetStateChangeListener"
+            android:enabled="true"
+            android:label="NetworkChangeReceiver">
             <intent-filter>
-                <action android:name="android.location.PROVIDERS_CHANGED" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".Activities.CommentWithTag" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.Notifications"></activity>
     </application>
 
-</manifest>
+</manifest><!--
+<intent-filter>
+<action android:name="android.location.PROVIDERS_CHANGED" />
+<category android:name="android.intent.category.DEFAULT" />
+ <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+</intent-filter>
+-->

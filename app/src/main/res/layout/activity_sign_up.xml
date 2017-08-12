@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/screen_bg8"
     android:fitsSystemWindows="true"
-    tools:context="com.grampower.attendance.Activities.SignUp">
+    tools:context="com.grampower.fieldforce.Activities.SignUp">
 
     <com.wonderkiln.blurkit.BlurLayout
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_logo_50dp" />
 
-                <com.grampower.attendance.CustomTextviews.CustomTextViewNeoSansBold
+                <com.grampower.fieldforce.CustomTextviews.CustomTextViewNeoSansBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"

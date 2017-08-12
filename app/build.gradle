@@ -5,7 +5,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.grampower.attendance"
+        applicationId "com.grampower.fieldforce"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
@@ -15,6 +15,7 @@ android {
         useLibrary 'org.apache.http.legacy'
         renderscriptTargetApi 24
         renderscriptSupportModeEnabled true
+        vectorDrawables.useSupportLibrary true
     }
     buildTypes {
         release {
@@ -52,8 +53,13 @@ dependencies {
     compile 'com.wonderkiln:blurkit:1.0.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
     compile 'com.github.amanjeetsingh150:CoolProgressViews:1.0'
+    compile 'com.rockerhieu.emojicon:library:1.3.3'
+    compile 'org.apmem.tools:layouts:1.10@aar'
     testCompile 'junit:junit:4.12'
 }
+
+
+
 
 
 

@@ -34,6 +34,12 @@
     <string name="bottom_attendance">Attendance</string>
     <string name="bottom_task">Tasks</string>
     <string name="bottom_notifications">Notifications</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 
 </resources>

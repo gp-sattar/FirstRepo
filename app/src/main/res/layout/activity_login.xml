@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/screen_background4"
-    tools:context="com.grampower.attendance.Activities.LoginActivity">
+    tools:context="com.grampower.fieldforce.Activities.LoginActivity">
 
     <com.wonderkiln.blurkit.BlurLayout
         android:layout_width="match_parent"
